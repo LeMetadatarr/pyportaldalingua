@@ -1,9 +1,8 @@
 # Dataset export
 
 `pyportaldalingua.dataset` turns the portal's two resources into
-Hugging-Face-shaped JSON Lines. This is the upstream feed for the workspace's
-**Lusophone phonemics flagship** — `ml/phonemes` and `ml/portuguese/tugaphone`
-consume the `ipa` config as Portuguese grapheme→phoneme supervision.
+Hugging-Face-shaped JSON Lines — a Portuguese grapheme→phoneme (IPA) supervision
+corpus suitable for pronunciation modelling, TTS, and phonemics research.
 
 ## Configs
 

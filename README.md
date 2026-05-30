@@ -64,8 +64,8 @@ dataset.export_all(pdl.lemmas("casa"), pdl.load_changes_csv("pt_PT"), "corpus/")
 
 Two Hugging-Face-shaped JSONL configs: **`ipa`** (`word, ipa, syllables, class,
 source` — the Portuguese IPA pronunciation dataset) and **`acordo`** (the AO90
-`pt_PT`/`pt_BR` change set). This feeds the Lusophone phonemics flagship
-(`ml/phonemes`, `ml/portuguese/tugaphone`). See [docs/dataset.md](docs/dataset.md).
+`pt_PT`/`pt_BR` change set), a Portuguese grapheme-to-phoneme corpus for pronunciation
+modelling and phonemics research. See [docs/dataset.md](docs/dataset.md).
 
 ## Documentation
 

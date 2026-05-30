@@ -19,8 +19,8 @@ in memory. :func:`export_jsonl` writes one config; :func:`export_all` writes bot
 plus a manifest. :func:`build_ipa_corpus` crawls a set of words into the ``ipa``
 config; :func:`build_acordo_corpus` exports the AO change set.
 
-This feeds the workspace's Lusophone phonemics flagship (``ml/phonemes``,
-``ml/portuguese/tugaphone``) — see ``docs/dataset.md``.
+The output is a Portuguese grapheme-to-phoneme (IPA) supervision corpus for
+pronunciation modelling and phonemics research — see ``docs/dataset.md``.
 """
 from __future__ import annotations
 
