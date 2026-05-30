@@ -63,7 +63,7 @@ class Transport:
         from pyportaldalingua import Transport
         t = Transport(delay=1.0)
         t = Transport(mode="wayback")          # force the Internet Archive
-        t = Transport(flaresolverr_url="http://192.168.1.116:8191")
+        t = Transport(flaresolverr_url="http://localhost:8191")
     """
 
     def __init__(self, *, mode: Optional[str] = None, delay: float = 1.0,

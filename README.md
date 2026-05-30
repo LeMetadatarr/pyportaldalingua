@@ -74,7 +74,7 @@ source` — the Portuguese IPA pronunciation dataset) and **`acordo`** (the AO90
 - [docs/orthography.md](docs/orthography.md) — Acordo Ortográfico + word-lists
 - [docs/transport.md](docs/transport.md) — transport modes / anti-bot / Wayback
 - [docs/dataset.md](docs/dataset.md) — the dataset configs this client produces
-- [docs/metadatarr.md](docs/metadatarr.md) — bridging lemmas into `ExternalIds.extra`
+- [docs/external_ids.md](docs/external_ids.md) — external-IDs dict for cross-referencing across data sources
 
 Runnable, numbered scripts live in [examples/](examples/). Source, citation and
 licensing are in [PROVENANCE.md](PROVENANCE.md).

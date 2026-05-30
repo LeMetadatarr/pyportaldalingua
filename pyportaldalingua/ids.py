@@ -1,8 +1,8 @@
-"""metadatarr integration helpers for portal lemmas.
+"""External-ID helpers for portal lemmas.
 
-These convert a :class:`~pyportaldalingua.models.Lemma` into a flat ``extra``
-dict compatible with the ``ExternalIds.extra`` field used across the metadatarr
-pipeline. Keys are namespaced with the ``portaldalingua_`` prefix.
+These convert a :class:`~pyportaldalingua.models.Lemma` into a flat ``str ->
+str`` dict of namespaced external IDs for cross-referencing across data sources.
+Keys are namespaced with the ``portaldalingua_`` prefix.
 
 A phonetic-dictionary entry is identified by its **lemma word** (the portal's
 pt orthography headword); when the detail-page numeric id is known it is carried
@@ -33,7 +33,7 @@ def id_from_url(url: str) -> Optional[str]:
 
 
 def lemma_to_extra(lemma: Lemma) -> dict:
-    """Convert a :class:`Lemma` to a metadatarr ``extra`` dict.
+    """Convert a :class:`Lemma` to a flat external-IDs dict.
 
     Keys written (those present on the lemma):
 

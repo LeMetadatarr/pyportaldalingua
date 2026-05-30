@@ -29,7 +29,7 @@ pdl.phonetics("palavra", transport=t)
 # pin a mode / force the archive / route through FlareSolverr
 client = pdl.PortalDaLingua(transport="requests")
 client = pdl.PortalDaLingua(wayback=True)
-client = pdl.PortalDaLingua(flaresolverr_url="http://192.168.1.116:8191")
+client = pdl.PortalDaLingua(flaresolverr_url="http://localhost:8191")
 ```
 
 A `Transport` reuses one session (and any solved challenge) and sleeps its
@@ -51,4 +51,4 @@ Prefix `PYPORTALDALINGUA_`:
 The portal is shared, unauthenticated infrastructure. A descriptive
 `User-Agent` is set automatically; keep the `delay` non-zero for bulk crawls
 (`scrape_variant`, `dataset.build_ipa_corpus`) and prefer running them as a
-homelab job rather than a tight interactive loop.
+scheduled/background job rather than a tight interactive loop.

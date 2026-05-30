@@ -51,7 +51,7 @@ A pytest plugin in the shared `~/.venvs/ovos` env can fail to import; run with
   `parse_changes`; bundled `load_changes_csv`, `load_wordlists`, `wordlist_names`.
 - `pyportaldalingua/client.py` — `PortalDaLingua` high-level client.
 - `pyportaldalingua/ids.py` — `lemma_id` / `id_from_url` / `lemma_to_extra`:
-  bridge a lemma into the metadatarr `ExternalIds.extra` dict, keys namespaced
+  convert a lemma into a flat external-IDs dict, keys namespaced
   `portaldalingua_`, anchored on the lemma word.
 - `pyportaldalingua/dataset.py` — HF export: configs `ipa` and `acordo`;
   `export_jsonl` / `export_all` / `build_ipa_corpus` / `build_acordo_corpus`.

@@ -1,7 +1,8 @@
-# metadatarr integration
+# External IDs
 
-`pyportaldalingua.ids` bridges a `Lemma` into the `ExternalIds.extra` dict used
-across the metadatarr pipeline. Keys are namespaced with `portaldalingua_`.
+`pyportaldalingua.ids` converts a `Lemma` into a flat `str -> str` dict of
+namespaced external IDs, suitable for cross-referencing across data sources.
+Keys are prefixed with `portaldalingua_`.
 
 A phonetic-dictionary entry has no opaque stable key the way a media record
 does — a lexical entry is identified by its **lemma word** (the pt-orthography
@@ -31,6 +32,6 @@ pdl.lemma_to_extra(lm)
 ```
 
 Only keys present on the lemma are written, so a bare `Lemma(word=…)` yields
-just `portaldalingua_word`. The shape matches the other language clients'
+just `portaldalingua_word`. The shape is compatible with other language clients'
 `*_to_extra` helpers (e.g. `pywiktionary.entry_to_extra`), so a pipeline can mix
-Portuguese IPA from the portal with Wiktionary IPA under one `extra` dict.
+Portuguese IPA from the portal with Wiktionary IPA under one external-IDs dict.
