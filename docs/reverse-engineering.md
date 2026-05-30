@@ -210,6 +210,182 @@ of the source archive format, not the live HTTP interface).
 
 ---
 
+---
+
+## Endpoint 3 — VOP vocabulary search (fuzzy / partial headword resolution)
+
+```
+GET http://www.portaldalinguaportuguesa.org/simplesearch.php
+    ?sel=<mode>
+    &action=simplesearch
+    &base=form
+    &query=<word>
+```
+
+This endpoint backs the **Vocabulário Ortográfico do Português (VOP)** search
+form on the portal's main navigation.
+
+### Parameters
+
+| Parameter | Required | Value |
+|-----------|----------|-------|
+| `sel`     | yes      | `exact` / `contain` / `start` / `end` |
+| `action`  | yes      | `simplesearch` |
+| `base`    | yes      | `form` |
+| `query`   | yes      | the query word or prefix |
+
+`sel=contain` is the portal's substring/fuzzy mode and is what
+`pyportaldalingua.vop_search()` defaults to.
+
+### Response
+
+An HTML page with `<h1>Resultados da pesquisa</h1>` and a result count, then a
+`<table>` with one `<tr>` per matching lemma. Each row carries:
+
+- a `<td label="…">` attribute whose value is a normalised key for the headword;
+- a `<span style="color: …">` containing the **grammatical class**;
+- a `<td>` with an optional inflected-form note (when the hit is an inflected
+  form indexed under a different headword);
+- an `<a href="?action=lemma&lemma=<id>">` anchor with the **headword** and the
+  numeric **lemma id**.
+
+Results are returned in alphabetical order of the `label` attribute.
+
+### Code reference
+
+`pyportaldalingua.lexicon.parse_vop_search()` and `vop_search()` in
+`pyportaldalingua/lexicon.py`.
+
+---
+
+## Endpoint 4 — VOP lemma entry (inflection, conjugation, related forms)
+
+```
+GET http://www.portaldalinguaportuguesa.org/index.php
+    ?action=lemma
+    &lemma=<numeric-id>
+```
+
+### Parameters
+
+| Parameter | Required | Value |
+|-----------|----------|-------|
+| `action`  | yes      | `lemma` — selects the VOP lemma resource |
+| `lemma`   | yes      | numeric id from Endpoint 3, or from links elsewhere on the site |
+
+The portal also accepts `id=<N>` as a synonym for `lemma=<N>` in some contexts,
+but `lemma=` is the canonical form used by the search results.
+
+### Response
+
+An HTML page containing:
+
+1. `<h1><word> - <grammatical class></h1>` — the headword and its class.
+2. `<p title='Divisão silábica'>` — the syllabification with `·` middots and
+   `<u><b>…</b></u>` stress marking (same format as the phonetics endpoint).
+3. `<table id=classtable>` — an inflection or conjugation table:
+   - **nouns and adjectives**: rows of `<th>label<td>value` (singular/plural,
+     masculine/feminine);
+   - **verbs**: a full conjugation table with `<th colspan=6>Indicativo` /
+     `Conjuntivo / Subjuntivo` / `Imperativo` mood headers and six-column
+     tense sub-headers.
+4. `<p>Flexiona como : <a href='paradigm.php?paradigm=…'>word</a></p>` — the
+   inflectional paradigm class.
+5. `<p>` paragraphs with related-form links (`diminutivo`, `aumentativo`,
+   `adjetivo PP de`, `forma nominal`, etc.), each an `action=lemma&lemma=<id>`
+   anchor.
+
+### Code reference
+
+`pyportaldalingua.lexicon.parse_lemma_entry()` and `lemma_entry()` in
+`pyportaldalingua/lexicon.py`.
+
+---
+
+## Endpoint 5 — Dicionário de Estrangeirismos
+
+```
+GET http://www.portaldalinguaportuguesa.org/index.php
+    ?action=loanwords
+    &act=list
+    &search=<word>
+```
+
+### Response
+
+An HTML table (`id=rollovertable`) with columns:
+
+| Column | Title attribute |
+|--------|-----------------|
+| Palavra | `<a href='index.php?action=lemma&lemma=<id>'>` |
+| Categoria gramatical | `title='Categoria gramatical'` |
+| Língua de origem | `title='Língua de origem'` (anchor to a by-language listing) |
+| Domínio | `title='Domínio'` |
+| Adaptação | `title='Adaptação'` — recommended Portuguese adaptation |
+| Equivalente | `title='Equivalente'` — Portuguese synonym |
+
+The search matches by substring. Coverage is the dictionary's indexed headwords;
+not all VOP entries have an Estrangeirismos record.
+
+### Code reference
+
+`pyportaldalingua.loanwords.parse_loanwords()` and `loanword_search()` in
+`pyportaldalingua/loanwords.py`.
+
+---
+
+## Endpoint 6 — Dicionário de Gentílicos e Topónimos
+
+```
+GET http://www.portaldalinguaportuguesa.org/index.php
+    ?action=toponyms
+    &act=list
+    &search=<toponym>
+```
+
+### Response
+
+An HTML table (`id=rollovertable`) with columns:
+
+| Column | Note |
+|--------|------|
+| Topónimo | The place name (empty on continuation rows for the same toponym) |
+| Tipo | Place type: `cidade`, `país`, `distrito`, … (also empty on continuation rows) |
+| Gentílico | An `<a href='?action=lemma&lemma=<id>'>word</a> - gclass` anchor |
+| Parte de | Administrative parent, inner `<i>` text; last italic item is the country/region |
+
+A single toponym with multiple demonym forms (e.g. *Lisboa* → *lisboano*,
+*lisboeta*, *lisbonense*, *lisbonino*, *lisbonês*, *lisboês*, *olisiponense*,
+*ulissiponense*) appears on multiple rows with the toponym and type fields empty
+on all rows except the first.
+
+The `<td>` cells are **not closed** with `</td>` — positional row parsing is
+required; attribute-based closing detection is not reliable.
+
+### Code reference
+
+`pyportaldalingua.toponyms.parse_toponyms()`, `group_by_toponym()`, and
+`toponym_search()` in `pyportaldalingua/toponyms.py`.
+
+---
+
+## Portal sections not covered
+
+The following `action=` values were found in the site's main navigation but do
+not expose a searchable API in any form that could be reliably parametrised:
+
+| action | Description | Status |
+|--------|-------------|--------|
+| `acordo` / `novoacordo` | Static Acordo Ortográfico overview pages | Covered differently via the AO scraper (`orthography.py`) |
+| `vop` | VOP front page | Covered via `simplesearch.php` (Endpoint 3) |
+| `estrangeirismos` | Estrangeirismos front page | Covered via `action=loanwords` (Endpoint 5) |
+| `gentilicos` | Gentílicos front page | Covered via `action=toponyms` (Endpoint 6) |
+| `cruzadas` | Crossword-style look-up | HTML-only, no structured result table found |
+| `mestre` | Unknown section | Returns the default portal shell with no content table |
+| `lince` | Lince spell-checker resource | No search surface discoverable |
+
+---
+
 ## Citation
 
 If you publish work derived from these transcriptions, cite the portal's own

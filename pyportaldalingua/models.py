@@ -92,4 +92,4 @@ class AOChange:
         return d
 
 
-__all__ = ["Lemma", "AOChange", "REGIONS"]
+__all__ = ["Lemma", "AOChange", "REGIONS", "INDEX"]

@@ -2,15 +2,24 @@
 
 Typed Python client for the **Portal da Língua Portuguesa**
 (`portaldalinguaportuguesa.org`) — the Portuguese **IPA / AFI** pronunciation
-source and the **Acordo Ortográfico de 1990** change set.
+source, the **Acordo Ortográfico de 1990** change set, and three further
+linguistic dictionaries exposed by the portal.
 
-It reads two of the portal's resources into dataclasses:
+It reads five of the portal's resources into dataclasses:
 
 - the **Dicionário Fonético** — per-lemma IPA transcription in several regional
   accents (Lisboa, Luanda, Rio de Janeiro, São Paulo, Maputo, Díli), with
   syllabification and grammatical class;
 - the **Acordo Ortográfico** spelling-change lists (`pt_PT` / `pt_BR`), plus the
-  bundled word-lists shipped in `data/`.
+  bundled word-lists shipped in `data/`;
+- the **Vocabulário Ortográfico do Português (VOP)** — fuzzy/partial headword
+  search (exact, prefix, suffix, substring) and per-lemma lexicon entries with
+  inflection and conjugation tables, related-form links (diminutives,
+  augmentatives, past participles, nominal forms);
+- the **Dicionário de Estrangeirismos** — foreign-origin words with source
+  language, domain, recommended Portuguese adaptation, and synonyms;
+- the **Dicionário de Gentílicos e Topónimos** — place names mapped to their
+  Portuguese demonyms, with place type and administrative parent.
 
 ## Install
 
@@ -34,6 +43,23 @@ print(lm.grammatical_class)           # 'adjetivo'
 print(lm.syllabification)             # 'a.ca.sa.la.do'
 print(lm.ipa_by_region["Rio de Janeiro (padrão)"])   # 'a.ka.za.lˈa.dʊ'
 
+# fuzzy / partial headword resolution (VOP vocabulary)
+for r in pdl.vop_search("casament"):
+    print(r.word, r.grammatical_class, r.lemma_id)
+
+# VOP lexicon entry: inflection table and related forms
+entry = pdl.lemma_entry("67444")      # casa
+print(entry.inflection)               # {'singular': 'casa', 'plural': 'casas'}
+print(entry.related)                  # {'diminutivo': [('casinha', '107833')], ...}
+
+# Dicionário de Estrangeirismos
+for e in pdl.loanword_search("jazz"):
+    print(e.word, e.source_language, e.adaptation)
+
+# Dicionário de Gentílicos e Topónimos
+for g in pdl.toponym_search("lisboa"):
+    print(g.toponym, g.place_type, [d.demonym for d in g.demonyms])
+
 # Acordo Ortográfico spelling changes
 for ch in pdl.scrape_letter("a", "pt_PT")[:3]:
     print(ch.old, "->", ch.new)       # abjecto -> abjeto
@@ -50,6 +76,11 @@ words = pdl.load_wordlists("ao")      # streamed word-list
 | `phonetics("palavra")` | IPA `str` / `None` | Dicionário Fonético (standard accent) |
 | `phonetics_detail("palavra")` | `Lemma` / `None` | per-region IPA table |
 | `lemmas("casa")` | `List[Lemma]` | phonetic-dictionary search |
+| `vop_search("casament")` | `List[VopResult]` | VOP fuzzy/partial headword search |
+| `vop_search("casa", mode="start")` | `List[VopResult]` | VOP prefix search |
+| `lemma_entry("67444")` | `LemmaEntry` / `None` | VOP lexicon entry: inflection, conjugation, related forms |
+| `loanword_search("jazz")` | `List[LoanwordEntry]` | Dicionário de Estrangeirismos |
+| `toponym_search("lisboa")` | `List[ToponymResult]` | Dicionário de Gentílicos e Topónimos |
 | `scrape_letter("a", "pt_PT")` | `List[AOChange]` | live AO90 list |
 | `scrape_variant("pt_BR")` | `List[AOChange]` | live AO90, a–z |
 | `load_changes_csv("pt_PT")` | `List[AOChange]` | bundled CSV (offline) |
@@ -75,7 +106,7 @@ modelling and phonemics research. See [docs/dataset.md](docs/dataset.md).
 - [docs/transport.md](docs/transport.md) — transport modes / anti-bot / Wayback
 - [docs/dataset.md](docs/dataset.md) — the dataset configs this client produces
 - [docs/external_ids.md](docs/external_ids.md) — external-IDs dict for cross-referencing across data sources
-- [docs/reverse-engineering.md](docs/reverse-engineering.md) — the reverse-engineered AFI/IPA endpoint: params, response, 10-accent table, two-hop flow
+- [docs/reverse-engineering.md](docs/reverse-engineering.md) — all reverse-engineered endpoints: phonetics two-hop, VOP search, lemma entry, loanwords, toponyms, and uncovered sections
 
 Runnable, numbered scripts live in [examples/](examples/). Source, citation and
 licensing are in [PROVENANCE.md](PROVENANCE.md).
