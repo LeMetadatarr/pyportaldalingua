@@ -32,7 +32,7 @@ class PortalDaLingua:
     Example::
 
         import pyportaldalingua as pdl
-        client = pdl.PortalDaLingua(delay=1.0)
+        client = pdl.PortalDaLingua(delay=3.0)
         print(client.phonetics("acasalado"))
         for r in client.vop_search("casament"):
             print(r.word, r.lemma_id)
@@ -40,7 +40,7 @@ class PortalDaLingua:
             print(ch.old, "->", ch.new)
     """
 
-    def __init__(self, transport=None, *, delay: float = 1.0,
+    def __init__(self, transport=None, *, delay: float = 3.0,
                  flaresolverr_url: Optional[str] = None,
                  flaresolverr_timeout_ms: Optional[int] = None,
                  wayback: bool = False,

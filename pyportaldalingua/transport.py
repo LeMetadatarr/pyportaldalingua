@@ -61,12 +61,12 @@ class Transport:
     Example::
 
         from pyportaldalingua import Transport
-        t = Transport(delay=1.0)
+        t = Transport(delay=3.0)
         t = Transport(mode="wayback")          # force the Internet Archive
         t = Transport(flaresolverr_url="http://localhost:8191")
     """
 
-    def __init__(self, *, mode: Optional[str] = None, delay: float = 1.0,
+    def __init__(self, *, mode: Optional[str] = None, delay: float = 3.0,
                  flaresolverr_url: Optional[str] = None,
                  flaresolverr_timeout_ms: Optional[int] = None,
                  wayback_fallback: Optional[bool] = None) -> None:
