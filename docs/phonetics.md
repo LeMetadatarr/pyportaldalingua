@@ -48,6 +48,10 @@ Janeiro (padrão / não padrão), São Paulo (padrão / não padrão), and Díli
 - `grammatical_class` — the portal's label (`adjetivo`, `nome`, `verbo`, …);
 - `ipa_by_region` — every accent's transcription (detail fetch only).
 
+## See also
+
+[reverse-engineering.md](reverse-engineering.md) — full parameter-level documentation of both `index.php` endpoints, the 10-accent detail table, and the two-hop flow.
+
 ## Caveats
 
 - Matching is exact and case-insensitive against the lemma headword. The portal

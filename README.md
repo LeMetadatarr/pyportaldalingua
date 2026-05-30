@@ -75,6 +75,7 @@ source` — the Portuguese IPA pronunciation dataset) and **`acordo`** (the AO90
 - [docs/transport.md](docs/transport.md) — transport modes / anti-bot / Wayback
 - [docs/dataset.md](docs/dataset.md) — the dataset configs this client produces
 - [docs/external_ids.md](docs/external_ids.md) — external-IDs dict for cross-referencing across data sources
+- [docs/reverse-engineering.md](docs/reverse-engineering.md) — the reverse-engineered AFI/IPA endpoint: params, response, 10-accent table, two-hop flow
 
 Runnable, numbered scripts live in [examples/](examples/). Source, citation and
 licensing are in [PROVENANCE.md](PROVENANCE.md).
