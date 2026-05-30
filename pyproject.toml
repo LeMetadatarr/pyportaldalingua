@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyportaldalingua"
+dynamic = ["version"]
+description = "Typed Python client for the Portal da Língua Portuguesa — the Portuguese IPA/AFI pronunciation source and Acordo Ortográfico change set"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "JarbasAi", email = "jarbasai@mailfence.com" }]
+requires-python = ">=3.9"
+dependencies = ["requests>=2.28", "unblock_requests"]
+keywords = ["portuguese", "ipa", "afi", "pronunciation", "phonemics", "tts", "acordo-ortografico", "nlp", "scraper", "metadata"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Intended Audience :: Developers",
+    "Natural Language :: Portuguese",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Internet :: WWW/HTTP",
+]
+
+[project.optional-dependencies]
+stealth = ["curl-cffi"]
+test = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/TigreGotico/pyportaldalingua"
+Repository = "https://github.com/TigreGotico/pyportaldalingua"
+
+[tool.pytest.ini_options]
+markers = ["live: hits the live Portal da Língua Portuguesa (network required)"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pyportaldalingua*"]
+
+[tool.setuptools.package-data]
+pyportaldalingua = []
+
+[tool.setuptools.dynamic]
+version = {attr = "pyportaldalingua.version.__version__"}
