@@ -5,12 +5,12 @@ source. `pyportaldalingua.phonetics` reads it in two hops.
 
 ## The endpoint
 
-1. **search list** — `index.php?action=fonetica&act=list&region=lbx&search=<word>`
+1. **search list**: `index.php?action=fonetica&act=list&region=lbx&search=<word>`
    returns a `Palavra | Classe Gramatical | Fonética` table. Each row already
    carries the lemma (with `·` syllable breaks and the stressed syllable
    underlined), its grammatical class, the standard (Lisboa padrão) IPA, and a
    link `act=details&id=<N>`.
-2. **detail page** — `index.php?action=fonetica&act=details&id=<N>` renders the
+2. **detail page**: `index.php?action=fonetica&act=details&id=<N>` renders the
    same lemma with its IPA in **every transcribed regional accent**.
 
 ## Functions
@@ -40,25 +40,30 @@ Janeiro (padrão / não padrão), São Paulo (padrão / não padrão), and Díli
 
 ## What's captured
 
-- `word` — the plain lemma headword (syllable dots stripped);
-- `ipa` — standard IPA, verbatim, with stress (`ˈ`), length (`ː`) and
-  syllable-dot (`.`) marks intact;
-- `syllabification` — dot-separated (`"a.ca.sa.la.do"`), from the search row's
-  `·` breaks; `Lemma.syllables` splits it into a list;
-- `grammatical_class` — the portal's label (`adjetivo`, `nome`, `verbo`, …);
-- `ipa_by_region` — every accent's transcription (detail fetch only).
+- `word`: the plain lemma headword, with syllable dots stripped.
+- `ipa`: standard IPA, verbatim, with stress (`ˈ`), length (`ː`), and
+  syllable-dot (`.`) marks intact.
+- `syllabification`: dot-separated (`"a.ca.sa.la.do"`), from the search row's
+  `·` breaks. `Lemma.syllables` splits it into a list.
+- `grammatical_class`: the portal's label (`adjetivo`, `nome`, `verbo`, and so on).
+- `ipa_by_region`: every accent's transcription (detail fetch only).
 
 ## See also
 
-[reverse-engineering.md](reverse-engineering.md) — full parameter-level documentation of both `index.php` endpoints, the 10-accent detail table, and the two-hop flow.
+[reverse-engineering.md](reverse-engineering.md) covers both `index.php`
+endpoints at the parameter level, the 10-accent detail table, and the two-hop
+flow.
 
 ## Caveats
 
-- Matching is exact and case-insensitive against the lemma headword. The portal
-  may index several related/inflected forms under one search; `lemmas()` returns
-  them all, `phonetics()` keeps the exact-headword hit.
-- The phonetic dictionary is a *Recurso em teste* (research resource, Ashby et
-  al. 2012); transcriptions are rule-generated per accent. Treat them as a
-  high-quality reference, not a hand-curated gold standard.
-- Coverage is the dictionary's lemma set, not the full vocabulary; some words in
-  the word-lists have no phonetic entry.
+- Matching is exact and case-insensitive against the lemma headword. The
+  portal may index several related and inflected forms under one search.
+  `lemmas()` returns them all. `phonetics()` keeps the exact-headword hit.
+- The phonetic dictionary is a *Recurso em teste* (research resource, Ashby
+  et al. 2012). Transcriptions are rule-generated per accent. Treat them as
+  a high-quality reference, not a hand-curated gold standard.
+- Coverage is the dictionary's lemma set, not the full vocabulary. Some words
+  in the word-lists have no phonetic entry.
+
+---
+[← Quickstart](quickstart.md) · [Home](../README.md) · [Orthography →](orthography.md)

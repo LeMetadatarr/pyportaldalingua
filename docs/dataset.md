@@ -1,12 +1,12 @@
 # Dataset export
 
 `pyportaldalingua.dataset` turns the portal's two resources into
-Hugging-Face-shaped JSON Lines — a Portuguese grapheme→phoneme (IPA) supervision
-corpus suitable for pronunciation modelling, TTS, and phonemics research.
+Hugging-Face-shaped JSON Lines: a Portuguese grapheme-to-phoneme (IPA)
+supervision corpus for pronunciation modeling, TTS, and phonemics research.
 
 ## Configs
 
-### `ipa` — the Portuguese IPA pronunciation dataset
+### `ipa`: the Portuguese IPA pronunciation dataset
 
 One row per lemma that has a transcription. The core training signal for
 grapheme-to-phoneme (G2P) and TTS front-ends.
@@ -17,7 +17,7 @@ grapheme-to-phoneme (G2P) and TTS front-ends.
  "class": "adjetivo", "source": "portaldalinguaportuguesa.org"}
 ```
 
-### `acordo` — the Acordo Ortográfico de 1990 change set
+### `acordo`: the Acordo Ortográfico de 1990 change set
 
 One row per spelling change, both variants.
 
@@ -67,12 +67,16 @@ frequency list.
 
 ## ML tasks this serves
 
-- **Grapheme-to-phoneme (G2P) / TTS front-ends** — `word -> ipa`, the core
+- **Grapheme-to-phoneme (G2P) / TTS front-ends**: `word -> ipa`, the core
   supervision for predicting Portuguese pronunciation from spelling, with
   syllable boundaries included.
-- **Regional accent modelling** — the detail-page `ipa_by_region` gives parallel
-  transcriptions across European, Brazilian, African and Timorese accents.
-- **Orthographic normalisation** — the `acordo` config (and the `ao` / `preao`
-  word-lists) is a parallel pre/post-reform spelling corpus.
+- **Regional accent modeling**: the detail-page `ipa_by_region` gives
+  parallel transcriptions across European, Brazilian, African, and Timorese
+  accents.
+- **Orthographic normalization**: the `acordo` config (and the `ao` / `preao`
+  word-lists) is a parallel pre-reform/post-reform spelling corpus.
 
-See [PROVENANCE.md](../PROVENANCE.md) for source, citation and licensing.
+See [PROVENANCE.md](../PROVENANCE.md) for source, citation, and licensing.
+
+---
+[← Transport](transport.md) · [Home](../README.md) · [External IDs →](external_ids.md)
