@@ -1,24 +1,24 @@
 # pyportaldalingua
 
 Typed Python client for the **Portal da Língua Portuguesa**
-(`portaldalinguaportuguesa.org`) — the Portuguese **IPA / AFI** pronunciation
-source, the **Acordo Ortográfico de 1990** change set, and three further
-linguistic dictionaries exposed by the portal.
+(`portaldalinguaportuguesa.org`), the Portuguese **IPA / AFI** pronunciation
+source, the **Acordo Ortográfico de 1990** change set, and three more
+linguistic dictionaries the portal exposes.
 
 It reads five of the portal's resources into dataclasses:
 
-- the **Dicionário Fonético** — per-lemma IPA transcription in several regional
-  accents (Lisboa, Luanda, Rio de Janeiro, São Paulo, Maputo, Díli), with
-  syllabification and grammatical class;
-- the **Acordo Ortográfico** spelling-change lists (`pt_PT` / `pt_BR`), plus the
-  bundled word-lists shipped in `data/`;
-- the **Vocabulário Ortográfico do Português (VOP)** — fuzzy/partial headword
-  search (exact, prefix, suffix, substring) and per-lemma lexicon entries with
-  inflection and conjugation tables, related-form links (diminutives,
-  augmentatives, past participles, nominal forms);
-- the **Dicionário de Estrangeirismos** — foreign-origin words with source
-  language, domain, recommended Portuguese adaptation, and synonyms;
-- the **Dicionário de Gentílicos e Topónimos** — place names mapped to their
+- the **Dicionário Fonético**: per-lemma IPA transcription in several
+  regional accents (Lisboa, Luanda, Rio de Janeiro, São Paulo, Maputo, Díli),
+  with syllabification and grammatical class.
+- the **Acordo Ortográfico** spelling-change lists (`pt_PT` / `pt_BR`), plus
+  the word-lists bundled in `data/`.
+- the **Vocabulário Ortográfico do Português (VOP)**: fuzzy and partial
+  headword search (exact, prefix, suffix, substring) and per-lemma lexicon
+  entries with inflection and conjugation tables, and related-form links
+  (diminutives, augmentatives, past participles, nominal forms).
+- the **Dicionário de Estrangeirismos**: foreign-origin words with source
+  language, domain, recommended Portuguese adaptation, and synonyms.
+- the **Dicionário de Gentílicos e Topónimos**: place names mapped to their
   Portuguese demonyms, with place type and administrative parent.
 
 ## Install
@@ -82,7 +82,7 @@ words = pdl.load_wordlists("ao")      # streamed word-list
 | `loanword_search("jazz")` | `List[LoanwordEntry]` | Dicionário de Estrangeirismos |
 | `toponym_search("lisboa")` | `List[ToponymResult]` | Dicionário de Gentílicos e Topónimos |
 | `scrape_letter("a", "pt_PT")` | `List[AOChange]` | live AO90 list |
-| `scrape_variant("pt_BR")` | `List[AOChange]` | live AO90, a–z |
+| `scrape_variant("pt_BR")` | `List[AOChange]` | live AO90, a-z |
 | `load_changes_csv("pt_PT")` | `List[AOChange]` | bundled CSV (offline) |
 | `load_wordlists("ao")` | `Iterator[str]` | bundled word-list (offline) |
 
@@ -93,20 +93,21 @@ from pyportaldalingua import dataset
 dataset.export_all(pdl.lemmas("casa"), pdl.load_changes_csv("pt_PT"), "corpus/")
 ```
 
-Two Hugging-Face-shaped JSONL configs: **`ipa`** (`word, ipa, syllables, class,
-source` — the Portuguese IPA pronunciation dataset) and **`acordo`** (the AO90
-`pt_PT`/`pt_BR` change set), a Portuguese grapheme-to-phoneme corpus for pronunciation
-modelling and phonemics research. See [docs/dataset.md](docs/dataset.md).
+This produces two Hugging-Face-shaped JSONL configs. **`ipa`** holds `word,
+ipa, syllables, class, source`, the Portuguese IPA pronunciation dataset.
+**`acordo`** holds the AO90 `pt_PT`/`pt_BR` change set. Together they form a
+Portuguese grapheme-to-phoneme corpus for pronunciation modeling and
+phonemics research. See [docs/dataset.md](docs/dataset.md).
 
 ## Documentation
 
-- [docs/quickstart.md](docs/quickstart.md) — the essentials
-- [docs/phonetics.md](docs/phonetics.md) — how IPA / AFI is found and parsed
-- [docs/orthography.md](docs/orthography.md) — Acordo Ortográfico + word-lists
-- [docs/transport.md](docs/transport.md) — transport modes / anti-bot / Wayback
-- [docs/dataset.md](docs/dataset.md) — the dataset configs this client produces
-- [docs/external_ids.md](docs/external_ids.md) — external-IDs dict for cross-referencing across data sources
-- [docs/reverse-engineering.md](docs/reverse-engineering.md) — all reverse-engineered endpoints: phonetics two-hop, VOP search, lemma entry, loanwords, toponyms, and uncovered sections
+- [docs/quickstart.md](docs/quickstart.md): the essentials
+- [docs/phonetics.md](docs/phonetics.md): how IPA / AFI is found and parsed
+- [docs/orthography.md](docs/orthography.md): Acordo Ortográfico and word-lists
+- [docs/transport.md](docs/transport.md): transport modes, anti-bot handling, Wayback fallback
+- [docs/dataset.md](docs/dataset.md): the dataset configs this client produces
+- [docs/external_ids.md](docs/external_ids.md): external-IDs dict for cross-referencing across data sources
+- [docs/reverse-engineering.md](docs/reverse-engineering.md): the reverse-engineered endpoints (phonetics two-hop, VOP search, lemma entry, loanwords, toponyms) and the sections not yet covered
 
-Runnable, numbered scripts live in [examples/](examples/). Source, citation and
-licensing are in [PROVENANCE.md](PROVENANCE.md).
+Runnable, numbered scripts live in [examples/](examples/). Source, citation,
+and licensing are in [PROVENANCE.md](PROVENANCE.md).

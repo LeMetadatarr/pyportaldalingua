@@ -61,3 +61,6 @@ client.scrape_variant("pt_BR")
 See [transport.md](transport.md) for modes and anti-bot, [phonetics.md](phonetics.md)
 for how IPA is parsed, [orthography.md](orthography.md) for AO + word-lists, and
 [dataset.md](dataset.md) for the HF corpora this client produces.
+
+---
+[Home](../README.md) · [Phonetics →](phonetics.md)

@@ -1,10 +1,10 @@
 # Transport
 
 Every request goes through the org transport
-`unblock_requests.CloudflareSession` — a drop-in `requests.Session` subclass —
-wrapped by `pyportaldalingua.Transport`. The portal is a plain old PHP site, so
-a bypass is rarely needed, but the same transport gives you TLS impersonation, a
-FlareSolverr proxy and an Internet-Archive fallback for free.
+`unblock_requests.CloudflareSession`, a drop-in `requests.Session` subclass,
+wrapped by `pyportaldalingua.Transport`. The portal is a plain old PHP site,
+so a bypass is rarely needed. The same transport gives you TLS impersonation,
+a FlareSolverr proxy, and an Internet-Archive fallback for free.
 
 ## Modes
 
@@ -49,6 +49,9 @@ Prefix `PYPORTALDALINGUA_`:
 ## Politeness
 
 The portal is shared, unauthenticated infrastructure. A descriptive
-`User-Agent` is set automatically; keep the `delay` non-zero for bulk crawls
+`User-Agent` is set automatically. Keep the `delay` non-zero for bulk crawls
 (`scrape_variant`, `dataset.build_ipa_corpus`) and prefer running them as a
-scheduled/background job rather than a tight interactive loop.
+scheduled or background job rather than a tight interactive loop.
+
+---
+[← Orthography](orthography.md) · [Home](../README.md) · [Dataset →](dataset.md)

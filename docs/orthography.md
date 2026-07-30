@@ -1,4 +1,4 @@
-# Orthography — Acordo Ortográfico + word-lists
+# Orthography: Acordo Ortográfico and word-lists
 
 `pyportaldalingua.orthography` covers the **Acordo Ortográfico de 1990** (AO90)
 spelling changes and the bundled Portuguese word-lists.
@@ -6,7 +6,7 @@ spelling changes and the bundled Portuguese word-lists.
 ## AO90 changes
 
 The portal lists the changes per letter, per variant, at
-`index.php?action=novoacordo&act=list&letter=<a-z>&version=<pe|pb>` — a
+`index.php?action=novoacordo&act=list&letter=<a-z>&version=<pe|pb>`, an
 `Ortografia Antiga | Ortografia Nova | Notas` table. `pe` is European Portuguese
 (`pt_PT`), `pb` is Brazilian (`pt_BR`).
 
@@ -33,7 +33,7 @@ pt = pdl.load_changes_csv("pt_PT")    # ~3200 AOChange, no network
 br = pdl.load_changes_csv("pt_BR")    # ~2000 AOChange
 ```
 
-These reproduce what `scrape_variant` fetches live — use them for fast, offline
+These reproduce what `scrape_variant` fetches live. Use them for fast, offline
 work and reserve the scraper for refreshes.
 
 ## Word-lists
@@ -53,11 +53,14 @@ pdl.wordlist_names()                   # {'ao': 'wordlist-ao-latest.txt.xz', ...
 ```
 
 The `ao` / `preao` pair is a ready-made parallel corpus of the spelling reform
-at vocabulary scale; pairing it with `load_changes_csv` gives the lexicalised
+at vocabulary scale. Pairing it with `load_changes_csv` gives the lexicalized
 changes.
 
 ## Other bundled data
 
 `data/` also carries `proverbios.txt` (Portuguese proverbs) and
-`estrangeirismos.pdf` (loanwords reference) captured from the portal — see
+`estrangeirismos.pdf` (loanwords reference) captured from the portal. See
 [PROVENANCE.md](../PROVENANCE.md).
+
+---
+[← Phonetics](phonetics.md) · [Home](../README.md) · [Transport →](transport.md)
