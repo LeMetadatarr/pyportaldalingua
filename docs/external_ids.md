@@ -34,7 +34,7 @@ pdl.lemma_to_extra(lm)
 Only keys present on the lemma are written, so a bare `Lemma(word=...)` yields
 just `portaldalingua_word`. The shape matches other language clients'
 `*_to_extra` helpers, such as `entry_to_extra` in
-[TigreGotico/pywiktionary](https://github.com/TigreGotico/pywiktionary), so a
+[LeMetadatarr/pywiktionary](https://github.com/LeMetadatarr/pywiktionary), so a
 pipeline can mix Portuguese IPA from the portal with Wiktionary IPA under one
 external-IDs dict.
 

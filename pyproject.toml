@@ -28,8 +28,8 @@ stealth = ["curl-cffi"]
 test = ["pytest"]
 
 [project.urls]
-Homepage = "https://github.com/TigreGotico/pyportaldalingua"
-Repository = "https://github.com/TigreGotico/pyportaldalingua"
+Homepage = "https://github.com/LeMetadatarr/pyportaldalingua"
+Repository = "https://github.com/LeMetadatarr/pyportaldalingua"
 
 [tool.pytest.ini_options]
 markers = ["live: hits the live Portal da Língua Portuguesa (network required)"]

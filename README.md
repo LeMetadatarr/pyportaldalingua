@@ -111,3 +111,14 @@ phonemics research. See [docs/dataset.md](docs/dataset.md).
 
 Runnable, numbered scripts live in [examples/](examples/). Source, citation,
 and licensing are in [PROVENANCE.md](PROVENANCE.md).
+
+## Related projects
+
+- [pywiktionary](https://github.com/LeMetadatarr/pywiktionary): a companion
+  language client, whose `entry_to_extra` shape the `pyportaldalingua.ids`
+  helpers follow (see [docs/external_ids.md](docs/external_ids.md)).
+- [unblock_requests](https://github.com/LeMetadatarr/unblock_requests): the
+  Cloudflare-aware `requests.Session` subclass this client's transport is
+  built on (see [docs/transport.md](docs/transport.md)).
+- [anon_requests](https://github.com/LeMetadatarr/anon_requests): optional
+  IP-rotation transport, installable with the `anon` extra.
