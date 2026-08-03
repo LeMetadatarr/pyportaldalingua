@@ -1,4 +1,8 @@
+import os
+
 from pyportaldalingua.phonetics import parse_detail, parse_search
+
+FIXTURES = os.path.join(os.path.dirname(__file__), "fixtures")
 
 
 def test_parse_search_extracts_lemma(fonetica_search_html):
@@ -37,11 +41,37 @@ def test_parse_detail_all_regions(fonetica_detail_html):
     assert lm is not None
     assert lm.word == "acasalado"
     assert lm.grammatical_class == "adjetivo"
-    assert len(lm.ipa_by_region) == 9
+    # 10 regions transcribed by the portal (see models.REGIONS); the last
+    # row (Díli) used to be dropped because parse_detail's body slice
+    # stripped the "</table>" boundary its row regex' lookahead needs.
+    assert len(lm.ipa_by_region) == 10
     assert lm.ipa_by_region["Lisboa (padrão)"] == "ɐ.kɐ.zɐ.lˈa.du"
     assert lm.ipa_by_region["Rio de Janeiro (padrão)"] == "a.ka.za.lˈa.dʊ"
     # standard accent is surfaced as the headline ipa
     assert lm.ipa == lm.ipa_by_region["Lisboa (padrão)"]
+
+
+def test_parse_detail_includes_last_region_row():
+    # regression for the dropped-last-row bug: Díli is the final row in the
+    # portal's region table and must not be silently discarded.
+    with open(os.path.join(FIXTURES, "fonetica_details_acasalado.html"),
+              encoding="utf-8") as fh:
+        lm = parse_detail(fh.read())
+    assert "Díli" in lm.ipa_by_region
+    assert lm.ipa_by_region["Díli"] == "ə.kə.zə.lˈa.dʊ"
+
+
+def test_parse_detail_casa_includes_last_region_row():
+    # a second, independently recorded detail page (real fixture, recorded
+    # 2026-08-03 via Transport against the live portal, id=6433 "casa")
+    with open(os.path.join(FIXTURES, "fonetica_details_casa.html"),
+              encoding="utf-8") as fh:
+        lm = parse_detail(fh.read())
+    assert lm is not None
+    assert lm.word == "casa"
+    assert len(lm.ipa_by_region) == 10
+    assert "Díli" in lm.ipa_by_region
+    assert lm.ipa_by_region["Díli"] == "kˈa.zə"
 
 
 def test_syllables_accessor(fonetica_search_html):

@@ -35,8 +35,8 @@ INDEX = "http://www.portaldalinguaportuguesa.org/index.php"
 ENV_PREFIX = "PYPORTALDALINGUA"
 
 _USER_AGENT = (
-    "pyportaldalingua/0.0.1 (TigreGotico language client; "
-    "https://github.com/TigreGotico/pyportaldalingua)"
+    "pyportaldalingua/0.0.1 (LeMetadatarr language client; "
+    "https://github.com/LeMetadatarr/pyportaldalingua)"
 )
 
 _VALID_MODES = {"requests", "curl_cffi", "wayback", "flaresolverr"}

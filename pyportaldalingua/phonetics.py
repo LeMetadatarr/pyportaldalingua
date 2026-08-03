@@ -85,9 +85,12 @@ def parse_detail(html: str) -> Optional[Lemma]:
     word = clean(head.group("word"))
     if not word:
         return None
-    # the region/IPA table sits right after the headword
+    # the region/IPA table sits right after the headword. Keep the closing
+    # </table> tag in the slice — _DETAIL_ROW's lookahead matches on it to
+    # find the boundary of the *last* region row (e.g. "Díli"); stripping it
+    # silently dropped that row.
     body = html[head.end():]
-    body = body.split("</table>", 1)[0]
+    body = body.split("</table>", 1)[0] + "</table>"
     by_region = {}
     for m in _DETAIL_ROW.finditer(body):
         region = clean(m.group("region"))

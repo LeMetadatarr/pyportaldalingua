@@ -20,8 +20,11 @@ def test_live_phonetics_detail_regions():
     lm = pdl.phonetics_detail("palavra")
     assert lm is not None
     assert lm.word == "palavra"
-    assert len(lm.ipa_by_region) >= 5
+    # the portal transcribes 10 regions per lemma (see models.REGIONS);
+    # Díli is the last row in the table and must be included.
+    assert len(lm.ipa_by_region) == 10
     assert "Lisboa (padrão)" in lm.ipa_by_region
+    assert "Díli" in lm.ipa_by_region
 
 
 def test_live_scrape_letter_ao():
